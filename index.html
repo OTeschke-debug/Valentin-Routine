@@ -106,6 +106,7 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
 .empty{color:var(--ink-soft);font-weight:700;margin:0}
 
 /* Elternbereich */
+.footlinks{align-self:center;display:flex;align-items:center;gap:2px;color:var(--line);font-weight:800}
 .parent-toggle{align-self:center;border:0;background:none;color:var(--ink-soft);font-weight:700;font-size:.9rem;padding:8px;user-select:none;-webkit-user-select:none}
 .parent{background:var(--paper);border:3px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:12px}
 .parent h2{font-family:var(--display);font-size:1.4rem;margin:0}
@@ -313,10 +314,6 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
 
   <section id="viewHome">
     <div class="home">
-      <div class="kidbar" id="kidBar" role="group" aria-label="Wer spielt?">
-        <button data-k="Valentin" style="--k:var(--denim)"><span class="kav">V</span><span class="kname">Valentin</span></button>
-        <button data-k="Ole" style="--k:var(--leaf)"><span class="kav">O</span><span class="kname">Ole</span></button>
-      </div>
       <div class="daymode" role="group" aria-label="Tageszeit">
         <button id="modeMorgen" aria-pressed="true">Morgen</button>
         <button id="modeAbend" aria-pressed="false">Abend</button>
@@ -558,7 +555,11 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
     </div>
   </section>
 
-  <button class="parent-toggle" id="parentToggle">Elternbereich</button>
+  <div class="footlinks">
+    <button class="parent-toggle" id="kidSwitch">Kind wechseln</button>
+    <span aria-hidden="true">·</span>
+    <button class="parent-toggle" id="parentToggle">Elternbereich</button>
+  </div>
   <section class="parent" id="parent" hidden>
     <h2>Elternbereich</h2>
     <p>Pro Kleidungsstück gibt es 1 Stern, fürs komplette Anziehen 2 Bonus-Sterne. Morgens (Anziehen) und abends (Schlafanzug) gibt es je 1 Stern pro Teil und 2 Bonus-Sterne, jeweils für die erste Runde am Tag. Zähneputzen gibt bis zu zweimal am Tag je 3 Sterne. Ab 15 Uhr zeigt der Start automatisch den Abend.</p>
@@ -1074,9 +1075,11 @@ function renderRace(){
   const ln = data.map(d => d.last && d.last.id === lastMon ? d.last.n : 0);
   if (ln[0] || ln[1]) note += ln[0] === ln[1] ? ' Letzte Woche: Gleichstand.' : ' Letzte Woche gewann ' + (ln[0] > ln[1] ? a.k : b.k) + ' (' + Math.max(...ln) + ':' + Math.min(...ln) + ').';
   $('raceNote').textContent = note;
-  KIDS.forEach(k => { const el = $('kst-' + k); if (el) el.textContent = '★ ' + (k === KID ? S.stars : readProfile(k).stars); });
 }
-document.querySelectorAll('#kidBar button').forEach(b => b.addEventListener('click', () => { if (switchKid(b.dataset.k)) greet(); }));
+$('kidSwitch').addEventListener('click', () => {
+  playToken++; try { voiceEl.pause(); } catch(e){} stopGreet(); if (fbAudio) { try { fbAudio.pause(); } catch(e){} fbAudio = null; }
+  show('home'); $('startOver').hidden = false;
+});
 $('tabHome').addEventListener('click', () => show('home'));
 $('tabShop').addEventListener('click', () => show('shop'));
 $('modeMorgen').addEventListener('click', () => { curR = 'morgen'; renderHome(); renderDress(); });
@@ -1299,7 +1302,7 @@ function openGate(){
     const btn = document.createElement('button'); btn.textContent = o;
     btn.addEventListener('click', () => {
       $('gate').hidden = true;
-      if (o === r) { renderShopEdit(); $('parent').hidden = false; $('parentToggle').hidden = true; $('parent').scrollIntoView({behavior:'smooth'}); }
+      if (o === r) { renderShopEdit(); $('parent').hidden = false; document.querySelector('.footlinks').hidden = true; $('parent').scrollIntoView({behavior:'smooth'}); }
     });
     $('gateOpts').appendChild(btn);
   });
@@ -1312,7 +1315,7 @@ $('again').addEventListener('click', () => {
   if (curR === 'abend') { openAstro(); return; }
   const it = RT().items[0]; speak([it.clip], it.say);
 });
-$('closeParent').addEventListener('click', () => { $('parent').hidden = true; $('parentToggle').hidden = false; });
+$('closeParent').addEventListener('click', () => { $('parent').hidden = true; document.querySelector('.footlinks').hidden = false; });
 $('minus').addEventListener('click', () => { S.stars = Math.max(0, S.stars-1); save(); renderStars(true); renderShop(); });
 $('plus').addEventListener('click', () => { S.stars++; save(); renderStars(true); renderShop(); });
 $('plus5').addEventListener('click', () => { S.stars += 5; save(); renderStars(true); renderShop(); });

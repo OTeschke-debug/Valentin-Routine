@@ -283,6 +283,14 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
   .brush svg{max-height:62vh;width:auto;max-width:100%;grid-row:2/4}
   .vstage{width:min(100%, calc(64vh * 16 / 9))}
 }
+.vidcard{display:flex;align-items:center;gap:16px;width:100%;border:4px solid #2B2F6E;background:linear-gradient(120deg,#23256A,#4B4FA8);color:#fff;border-radius:28px;padding:14px 20px;box-shadow:0 6px 0 #1A1C52;text-align:left;font-family:var(--body);transition:transform .12s}
+.vidcard:active{transform:translateY(4px);box-shadow:0 2px 0 #1A1C52}
+.vidcard .vc-play{flex:none;width:64px;height:64px;border-radius:50%;background:var(--sun);display:grid;place-items:center;box-shadow:0 4px 0 #E0A000}
+.vidcard .vc-play svg{width:30px;height:30px;margin-left:4px}
+.vidcard b{display:block;font-family:var(--display);font-size:1.45rem;line-height:1.1}
+.vidcard .vc-sub{font-weight:700;opacity:.85}
+.vidcard.kita{border-color:#C9781E;background:linear-gradient(120deg,#F29B38,#FFC94A);color:#3A2A10;box-shadow:0 6px 0 #C9781E}
+.astro-next{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .choice.wide{grid-column:1/-1;flex-direction:row;justify-content:center;gap:14px;padding:12px}
 .choice.wide svg{width:56px;height:56px}
 .choice.wide .c-sub{display:none}
@@ -365,6 +373,10 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
         <button id="modeAbend" aria-pressed="false">Abend</button>
       </div>
       <p class="home-q" id="homeQ">Guten Morgen, Valentin! Was machen wir jetzt?</p>
+      <button class="vidcard" id="goVideo" hidden>
+        <span class="vc-play"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z" fill="#2B3A55"/></svg></span>
+        <span><b id="vidTitle">Astro-Video ansehen</b><span class="vc-sub" id="vidSub">Astro fliegt ins Traumland</span></span>
+      </button>
       <div class="choices">
         <button class="choice" id="goDress" style="--c:var(--leaf)">
           <span id="dressIcon"></span>
@@ -483,11 +495,13 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
         <div class="vcap" id="avCap" hidden></div>
         <button id="ago" class="vplay">Los geht's mit Astro!</button>
       </div>
-      <button class="soft" id="skipAstro">Direkt zum Schlafanzug</button>
+      <div class="astro-next">
+        <button class="big-btn" id="skipAstro" style="background:#4B4FA8">Jetzt Schlafanzug anziehen</button>
+        <button class="big-btn" data-back style="background:var(--paper);color:var(--ink)">Zum Start</button>
+      </div>
     </div>
     <div class="row" style="margin-bottom:12px">
-      <button class="soft" id="replayAstro" hidden>Astro-Video ansehen</button>
-      <button class="soft" id="restartDress">Von vorne anfangen</button>
+            <button class="soft" id="restartDress">Von vorne anfangen</button>
     </div>
     <div class="stage" id="dressStage">
       <div class="figure-box">
@@ -1104,6 +1118,7 @@ function renderHome(){
   rollDay();
   const ev = curR === 'abend';
   $('goNight').hidden = !ev;
+  $('goVideo').hidden = !ev; // Morgen-Video (Kita) folgt
   renderJar(); renderRace(); renderKid();
   $('modeMorgen').setAttribute('aria-pressed', !ev); $('modeAbend').setAttribute('aria-pressed', ev);
   $('homeQ').textContent = (isEvening() ? 'Guten Abend, ' : 'Guten Morgen, ') + KID + '! Was machen wir jetzt?';
@@ -1153,21 +1168,21 @@ $('tabShop').addEventListener('click', () => show('shop'));
 $('modeMorgen').addEventListener('click', () => { curR = 'morgen'; renderHome(); renderDress(); });
 $('modeAbend').addEventListener('click', () => { curR = 'abend'; renderHome(); renderDress(); });
 function openAstro(){
-  $('dressStage').hidden = true; $('replayAstro').hidden = true; $('astroPart').hidden = false; $('ago').hidden = false;
+  $('dressStage').hidden = true; $('astroPart').hidden = false; $('ago').hidden = false; $('ago').textContent = "Los geht's mit Astro!";
   const v = $('av'); v.pause();
   const want = 'astro_' + kidTag() + '_' + VS.astro + (LAND() ? '_q' : '') + '.mp4?v=2';
   if (!v.src.endsWith(want)) { v.src = want; v.load(); } else { try { v.currentTime = 0; } catch(e){} }
 }
 function startRoutine(){
-  $('astroPart').hidden = true; $('dressStage').hidden = false; $('replayAstro').hidden = curR !== 'abend';
+  $('astroPart').hidden = true; $('dressStage').hidden = false;
   try { $('av').pause(); } catch(e){}
   const it = RT().items[ST().progress];
   if (it) speak([it.clip], it.say);
 }
 $('goDress').addEventListener('click', () => {
-  renderDress(); show('dress');
-  if (curR === 'abend' && ST().progress === 0) openAstro(); else startRoutine();
+  renderDress(); show('dress'); startRoutine();
 });
+$('goVideo').addEventListener('click', () => { renderDress(); show('dress'); openAstro(); });
 $('ago').addEventListener('click', () => {
   const v = $('av'); v.muted = false; v.volume = 1;
   try { v.currentTime = 0; } catch(e){}
@@ -1175,9 +1190,8 @@ $('ago').addEventListener('click', () => {
   if (pr && pr.catch) pr.catch(() => { v.load(); v.play().catch(() => { $('ago').hidden = false; }); });
   $('ago').hidden = true;
 });
-$('av').addEventListener('ended', startRoutine);
+$('av').addEventListener('ended', () => { $('ago').textContent = 'Nochmal ansehen'; $('ago').hidden = false; });
 $('skipAstro').addEventListener('click', startRoutine);
-$('replayAstro').addEventListener('click', openAstro);
 $('restartDress').addEventListener('click', () => { ST().progress = 0; ST().justEarned = false; save(); renderDress(); const it = RT().items[0]; speak([it.clip], it.say); });
 $('goTeeth').addEventListener('click', () => show('teeth'));
 document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => show('home')));
@@ -1399,7 +1413,6 @@ $('parentToggle').addEventListener('click', openGate);
 $('gateNo').addEventListener('click', () => { $('gate').hidden = true; });
 $('again').addEventListener('click', () => {
   ST().progress = 0; ST().justEarned = false; save(); renderDress();
-  if (curR === 'abend') { openAstro(); return; }
   const it = RT().items[0]; speak([it.clip], it.say);
 });
 $('closeParent').addEventListener('click', () => { $('parent').hidden = true; document.querySelector('.footlinks').hidden = false; });

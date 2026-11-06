@@ -1118,7 +1118,10 @@ function renderHome(){
   rollDay();
   const ev = curR === 'abend';
   $('goNight').hidden = !ev;
-  $('goVideo').hidden = !ev; // Morgen-Video (Kita) folgt
+  $('goVideo').hidden = false;
+  $('goVideo').classList.toggle('kita', !ev);
+  $('vidTitle').textContent = ev ? 'Astro-Video ansehen' : 'Rexi-Video ansehen';
+  $('vidSub').textContent = ev ? 'Astro fliegt ins Traumland' : 'Rexi geht mit in die Kita';
   renderJar(); renderRace(); renderKid();
   $('modeMorgen').setAttribute('aria-pressed', !ev); $('modeAbend').setAttribute('aria-pressed', ev);
   $('homeQ').textContent = (isEvening() ? 'Guten Abend, ' : 'Guten Morgen, ') + KID + '! Was machen wir jetzt?';
@@ -1167,10 +1170,15 @@ $('tabHome').addEventListener('click', () => show('home'));
 $('tabShop').addEventListener('click', () => show('shop'));
 $('modeMorgen').addEventListener('click', () => { curR = 'morgen'; renderHome(); renderDress(); });
 $('modeAbend').addEventListener('click', () => { curR = 'abend'; renderHome(); renderDress(); });
+let vidKind = 'astro';
 function openAstro(){
-  $('dressStage').hidden = true; $('astroPart').hidden = false; $('ago').hidden = false; $('ago').textContent = "Los geht's mit Astro!";
+  vidKind = curR === 'abend' ? 'astro' : 'rexi';
+  const rx = vidKind === 'rexi';
+  $('dressStage').hidden = true; $('astroPart').hidden = false; $('ago').hidden = false; $('ago').textContent = rx ? "Los geht's mit Rexi!" : "Los geht's mit Astro!";
+  $('skipAstro').textContent = rx ? 'Jetzt anziehen' : 'Jetzt Schlafanzug anziehen';
+  $('skipAstro').style.background = rx ? '#C9781E' : '#4B4FA8';
   const v = $('av'); v.pause();
-  const want = 'astro_' + kidTag() + '_' + VS.astro + (LAND() ? '_q' : '') + '.mp4?v=2';
+  const want = rx ? 'rexi_' + kidTag() + (LAND() ? '_q' : '') + '.mp4?v=1' : 'astro_' + kidTag() + '_' + VS.astro + (LAND() ? '_q' : '') + '.mp4?v=2';
   if (!v.src.endsWith(want)) { v.src = want; v.load(); } else { try { v.currentTime = 0; } catch(e){} }
 }
 function startRoutine(){
@@ -1206,11 +1214,13 @@ let papaMode = false;
 const brushDur = () => papaMode ? PAPA_T : TOTAL;
 let brushStart = 0, brushTick = null, spawnTick = null, curZone = -1, germCount = 0;
 const ZCAP = [[0.5,5.9,'Hallo {N}!\nIch bin Zucki!'],[6.3,12.0,'Ich komme aus dem Zucker.\nAus Bonbons, Kuchen\nund Gummibärchen!'],[12.3,19.0,'Wenn du nicht putzt,\nhacke ich an deinen\nZähnen. Aua!'],[19.3,22.6,'Aber eigentlich will ich\nin deinen Bauch!'],[22.8,26.0,'Mit kaputten Zähnen\nkannst du keine\nSüßigkeiten mehr essen.'],[26.3,31.0,'Also putz schön\ndeine Zähne!\nDann sehen wir uns wieder.'],[31.3,34.0,'Tschüss, {N}!']];
+const RCAP = [[0.5,4.1,'Hallo {N}!\nIch bin Rexi,\nder kleine Dino!'],[4.43,8.7,'Heute gehen wir zusammen\nin die Kita. Deine Freunde\nwarten schon auf uns!'],[9.04,12.1,'Aber zuerst müssen wir\nuns anziehen.\nMachst du mit?'],[12.43,17.5,'Zuerst die Unterhose.\nDann die Socken.\nJetzt die Hose!'],[17.81,21.3,'Dann das Unterhemd.\nUnd zum Schluss\nden Pullover.'],[21.58,27.3,'Danach putzen wir die Zähne,\ndamit Zucki und Zacki nicht\nmit in die Kita kommen!'],[27.51,33.5,'Bist du fertig? Dann los!\nRooaar!\nBis gleich in der Kita, {N}!']];
 const ACAP = [[0.5,5.3,'Hallo {N}!\nIch bin Astro,\nder kleine Astronaut!'],[5.6,10.0,'Ich fliege mit meiner\nRakete zu den Sternen\nund zum Mond.'],[10.3,16.0,'Heute Nacht fliegst du mit!\nDafür brauchst du deinen\nWeltraum-Schlafanzug.'],[16.2,22.0,'Zuerst die Hose,\ndann das Oberteil,\nund dein Kuscheltier\nfliegt auch mit.'],[22.2,27.4,'Danach putzen wir\ndie Zähne, damit Zucki\nund Zacki nicht\nmitfliegen.'],[27.6,34.0,'Drei, zwei, eins, Start!\nGute Nacht, {N}!']];
 function attachCaptions(v, capEl, table){
   let raf = null;
   const tick = () => {
-    const t = v.currentTime, row = table.find(r => t >= r[0] && t < r[1]);
+    const tb = typeof table === 'function' ? table() : table;
+    const t = v.currentTime, row = tb.find(r => t >= r[0] && t < r[1]);
     if (row) { capEl.textContent = row[2].replace('{N}', KID); capEl.hidden = false; } else capEl.hidden = true;
     if (!v.paused && !v.ended) raf = requestAnimationFrame(tick);
   };
@@ -1220,7 +1230,7 @@ function attachCaptions(v, capEl, table){
   v.addEventListener('pause', () => cancelAnimationFrame(raf));
 }
 attachCaptions($('bv'), $('bvCap'), ZCAP);
-attachCaptions($('av'), $('avCap'), ACAP);
+attachCaptions($('av'), $('avCap'), () => vidKind === 'rexi' ? RCAP : ACAP);
 const ZLINES = [
   [0.5,'Hallo Valentin! Ich bin Zucki!'], [6.3,'Ich komme aus dem Zucker. Aus Bonbons, Kuchen und Gummibärchen!'],
   [12.3,'Wenn du nicht putzt, hacke ich an deinen Zähnen. Aua!'], [19.3,'Aber eigentlich will ich in deinen Bauch!'],

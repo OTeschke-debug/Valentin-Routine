@@ -1018,7 +1018,7 @@ $('mYes').addEventListener('click', () => {
   S.coupons.push({name: pending.name, used:false, date: today()});
   save(); $('modal').hidden = true; chime(true); confetti();
   speak(['juhu'], 'Juhu! ' + pending.name + '. Zeig den Gutschein Mama oder Papa!');
-  pending = null; renderStars(true); renderShop();
+  pending = null; renderStars(true); renderShop(); renderJar(); renderRace();
 });
 
 /* Ansichten */
@@ -1318,9 +1318,9 @@ $('again').addEventListener('click', () => {
   const it = RT().items[0]; speak([it.clip], it.say);
 });
 $('closeParent').addEventListener('click', () => { $('parent').hidden = true; document.querySelector('.footlinks').hidden = false; });
-$('minus').addEventListener('click', () => { S.stars = Math.max(0, S.stars-1); save(); renderStars(true); renderShop(); });
-$('plus').addEventListener('click', () => { S.stars++; save(); renderStars(true); renderShop(); });
-$('plus5').addEventListener('click', () => { S.stars += 5; save(); renderStars(true); renderShop(); });
+$('minus').addEventListener('click', () => { S.stars = Math.max(0, S.stars-1); save(); renderStars(true); renderShop(); renderJar(); renderRace(); });
+$('plus').addEventListener('click', () => { S.stars++; save(); renderStars(true); renderShop(); renderJar(); renderRace(); });
+$('plus5').addEventListener('click', () => { S.stars += 5; save(); renderStars(true); renderShop(); renderJar(); renderRace(); });
 let zeroT;
 $('zero').addEventListener('click', () => {
   const b = $('zero');
@@ -1330,7 +1330,7 @@ $('zero').addEventListener('click', () => {
     return;
   }
   clearTimeout(zeroT); delete b.dataset.armed;
-  S.stars = 0; save(); renderStars(true); renderShop();
+  S.stars = 0; save(); renderStars(true); renderShop(); renderJar(); renderRace();
   b.textContent = 'Sterne sind auf 0';
   setTimeout(() => { b.textContent = 'Auf 0 setzen'; }, 2000);
 });

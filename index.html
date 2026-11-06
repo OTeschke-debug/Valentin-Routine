@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="54 – 2026-11-06">
+<meta name="app-version" content="55 – 2026-11-06">
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -355,7 +355,7 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
 
   <nav role="tablist">
     <button id="tabHome" role="tab" aria-selected="true">Start</button>
-    <button id="tabShop" role="tab" aria-selected="false">Shop</button>
+    <button id="tabShop" role="tab" aria-selected="false">Supermarkt</button>
   </nav>
 
   <section id="viewHome">
@@ -584,7 +584,7 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
           <p id="finishText">Du bist fertig angezogen. +2 Bonus-Sterne!</p>
           <div id="dressSticker" hidden></div>
           <div class="row" style="justify-content:center">
-            <button class="big-btn" id="goShop">Zum Sterne-Shop</button>
+            <button class="big-btn" id="goShop">Zum Supermarkt</button>
             <button class="big-btn" id="again" style="background:var(--paper);color:var(--ink)">Nochmal spielen</button>
           </div>
         </div>
@@ -595,14 +595,14 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
   <section id="viewShop" hidden>
     <div style="display:flex;flex-direction:column;gap:20px">
       <div class="shop-head">
-        <h2>Sterne-Shop</h2>
+        <h2>Sterne-Supermarkt</h2>
         <button class="howto" id="shopHow"><span>?</span> So geht's</button>
       </div>
       <div class="shop" id="shop"></div>
       <div class="coupons">
         <h2>Meine Gutscheine</h2>
         <ul class="coupon-list" id="coupons"></ul>
-        <p class="empty" id="noCoupons">Noch keine Gutscheine. Kauf dir etwas im Shop!</p>
+        <p class="empty" id="noCoupons">Noch keine Gutscheine. Kauf dir etwas im Supermarkt!</p>
       </div>
     </div>
   </section>
@@ -632,7 +632,7 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
       <label style="font-weight:800;display:flex;gap:8px;align-items:center"><input type="checkbox" id="dadToggle" style="width:22px;height:22px"> Aufgenommene Stimme verwenden (sonst Gerätestimme)</label>
     </div>
     <div class="row">
-      <label for="voiceSel" style="font-weight:800">Gerätestimme (für den Shop):</label>
+      <label for="voiceSel" style="font-weight:800">Gerätestimme (für den Supermarkt):</label>
       <select id="voiceSel" style="font:inherit;font-weight:700;padding:8px;border-radius:12px;border:2px solid var(--line);background:var(--paper);max-width:100%"></select>
       <button id="voiceTest">Anhören</button>
     </div>
@@ -643,7 +643,7 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
       <p class="edit-msg" id="photoMsg"></p>
     </div>
     <div class="edit">
-      <h3>Belohnungen im Shop</h3>
+      <h3>Belohnungen im Supermarkt</h3>
       <div id="shopEdit" class="edit-list"></div>
       <div class="edit-add">
         <input id="newName" type="text" placeholder="Neue Belohnung, z. B. Eis essen" aria-label="Name der neuen Belohnung">
@@ -849,7 +849,7 @@ const kidTag = () => KID === 'Ole' ? 'o' : 'v';
 function genitive(n){ return /[sßxz]$/i.test(n) ? n + '\u2019' : n + 's'; }
 // Stimme pro Figur bzw. Bereich: w = Frau, m = Mann
 const VAREAS = [
-  {id:'ansagen', label:'Anziehen', sub:'Ansagen am Morgen und im Shop'},
+  {id:'ansagen', label:'Anziehen', sub:'Ansagen am Morgen und im Supermarkt'},
   {id:'abend', label:'Schlafanzug', sub:'Ansagen am Abend'},
   {id:'putzen', label:'Putz-Spiel', sub:'Zähneputzen mit Zucki und Zacki'},
   {id:'zucki', label:'Zucki', sub:'Video „Zucki stellt sich vor“'},
@@ -1712,7 +1712,7 @@ const EX = [
    v:() => SHIRT.replace('class="mid"','class="mid ex-pop"') + TBRUSH.replace('class="mid"','class="mid ex-pop" style="animation-delay:.3s"') + exStars(3, 'ex-fly', [0, 110])},
   {k:'e2', t:'Deine Sterne kommen in dein Sternenglas. Je mehr du sammelst, desto voller wird es.',
    v:() => jarWith(14, 'ex-fly')},
-  {k:'e3', t:'Im Shop kannst du dir mit deinen Sternen etwas aussuchen. Die Zahl zeigt, wie viele Sterne es kostet.',
+  {k:'e3', t:'Im Supermarkt kannst du dir mit deinen Sternen etwas aussuchen. Die Zahl zeigt, wie viele Sterne es kostet.',
    v:() => { const x = exProd(false); return x.html.replace('<span class="exname"></span>', '<span>' + esc(x.p.name) + '</span>'); }},
   {k:'e4', t:'Hast du genug Sterne? Dann tipp auf Kaufen. Die Sterne fliegen aus deinem Glas.',
    v:() => { const x = exProd(true); return jarWith(Math.min((S.shop[0] || {price:5}).price, 12), 'ex-out') + x.html.replace('<span class="exname"></span>', '<span>' + esc(x.p.name) + '</span>'); }},

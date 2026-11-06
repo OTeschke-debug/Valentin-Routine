@@ -144,6 +144,49 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
 .vswitch button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .vcap{position:absolute;left:6%;right:6%;bottom:6%;background:#FFFFFF;color:#2B3A55;border:3px solid #2B3A55;border-radius:22px;padding:10px 12px;font-family:var(--display);font-weight:800;font-size:clamp(1rem,4.6vw,1.25rem);line-height:1.25;text-align:center;white-space:pre-line;pointer-events:none}
 .soft{border:2px solid var(--line);background:var(--paper);border-radius:14px;padding:10px 16px;font-weight:800}
+.howto{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:6px;border:2px solid var(--line);background:var(--sky2);border-radius:999px;padding:5px 12px 5px 5px;font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink)}
+.howto span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--denim);color:#fff;font-size:1rem}
+.explain{position:fixed;inset:0;z-index:80;background:rgba(43,58,85,.55);display:grid;place-items:center;padding:12px}
+.ex-card{background:var(--paper);border-radius:28px;width:100%;max-width:560px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;max-height:calc(100dvh - 24px);overflow:auto}
+.ex-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-size:1.15rem}
+.ex-x{border:0;background:var(--sky2);width:40px;height:40px;border-radius:50%;font-size:1.1rem;font-weight:800;color:var(--ink)}
+.ex-stage{position:relative;height:min(46vh,260px);border-radius:22px;background:linear-gradient(#CFE8F7,#EAF5FC);overflow:hidden;display:flex;align-items:center;justify-content:center;gap:18px}
+.ex-cap{margin:0;min-height:3.9em;font-family:var(--display);font-weight:800;font-size:1.35rem;line-height:1.3;text-align:center;text-wrap:balance}
+.ex-dots{display:flex;gap:8px;justify-content:center}
+.ex-dots i{width:12px;height:12px;border-radius:50%;background:var(--line)}
+.ex-dots i.on{background:var(--star)}
+.ex-ctrl{display:flex;gap:10px;justify-content:center;align-items:center}
+.ex-ctrl .soft{font-size:1.3rem;min-width:64px;padding:12px}
+.ex-ctrl .big-btn{font-size:1.1rem;padding:12px 20px}
+.ex-stage .big{width:110px;height:110px}
+.ex-stage .mid{width:70px;height:70px}
+.ex-stage .exs{position:absolute;width:40px;height:40px}
+.exs svg{width:100%;height:100%}
+.ex-stage path.ex-fly,.ex-stage path.ex-out{transform-box:fill-box;transform-origin:center}
+.ex-pop{animation:expop .6s cubic-bezier(.3,1.6,.6,1) both}
+@keyframes expop{from{transform:scale(0)}to{transform:scale(1)}}
+.ex-fly{animation:exfly 1.4s ease-in both}
+@keyframes exfly{0%{transform:translate(var(--fx),var(--fy)) scale(.4);opacity:0}20%{opacity:1}100%{transform:translate(0,0) scale(1);opacity:1}}
+.ex-out{animation:exout 1.2s ease-in both}
+@keyframes exout{0%{transform:translate(0,0)}100%{transform:translate(var(--fx),var(--fy)) scale(.3);opacity:0}}
+.ex-tap{position:absolute;width:46px;height:46px;border-radius:50%;border:5px solid var(--berry);animation:extap 1.2s ease-out infinite}
+@keyframes extap{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.ex-prod{border:4px solid var(--line);background:var(--paper);border-radius:22px;padding:10px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--display);font-weight:800;position:relative;min-width:120px}
+.ex-prod .pic{width:62px;height:62px;border-radius:18px;display:grid;place-items:center}.ex-prod .pic svg{width:44px;height:44px}
+.ex-prod .buy{width:auto;padding:6px 18px}
+.ex-ticket{border:4px dashed var(--star);background:#FFF8E1;border-radius:18px;padding:14px 18px;font-family:var(--display);font-weight:800;font-size:1.2rem;text-align:center;transform:rotate(-4deg)}
+.ex-ticket small{display:block;font-size:.85rem;color:var(--ink-soft)}
+.ex-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;width:92%}
+.ex-week div{background:var(--paper);border-radius:12px;padding:6px 0;text-align:center;font-family:var(--display);font-weight:800;font-size:.9rem;display:flex;flex-direction:column;align-items:center;gap:2px}
+.ex-week svg{width:26px;height:26px}
+.handoff{width:100%;max-width:520px;background:var(--paper);border:4px solid var(--line);border-radius:28px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.handoff svg{width:min(100%,360px);height:auto;overflow:visible}
+.handoff h2{font-family:var(--display);font-size:1.9rem;margin:0;line-height:1.1}
+.handoff p{margin:0;font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.3;text-wrap:balance}
+.ho-brush{animation:hobr 2.4s ease-in-out infinite}
+@keyframes hobr{0%,15%{transform:translate(100px,70px)}55%,100%{transform:translate(214px,70px)}}
+#magnifier{animation:mag 6s ease-in-out infinite}
+@keyframes mag{0%{transform:translate(90px,75px)}25%{transform:translate(210px,75px)}50%{transform:translate(90px,148px)}75%{transform:translate(210px,148px)}100%{transform:translate(90px,75px)}}
 .brush{width:100%;max-width:520px;display:flex;flex-direction:column;gap:10px;align-items:center}
 .brush svg{width:100%;height:auto;touch-action:manipulation}
 #zones rect{fill:transparent;stroke:transparent;stroke-width:5;stroke-dasharray:10 8}
@@ -344,7 +387,7 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
       </div>
       <div class="jar-card" id="jarCard" role="button" tabindex="0" aria-label="Sternenglas">
         <svg id="jarSvg" viewBox="0 0 120 150" aria-hidden="true"></svg>
-        <div class="jar-text"><b id="jarHead">Mein Sternenglas</b><span id="jarCount"></span></div>
+        <div class="jar-text"><b id="jarHead">Mein Sternenglas</b><span id="jarCount"></span><button class="howto" id="jarHow"><span>?</span> So geht's</button></div>
       </div>
       </div>
     </div>
@@ -399,9 +442,22 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
             </g>
           </g>
           <g id="germs"></g>
+          <g id="magnifier" pointer-events="none" style="display:none"><circle r="26" fill="rgba(255,255,255,.25)" stroke="#2B3A55" stroke-width="7"/><path d="M18 18 L40 40" stroke="#2B3A55" stroke-width="10" stroke-linecap="round"/></g>
         </svg>
         <div class="bar"><span id="barFill"></span></div>
         <p class="brush-info"><span id="timeLeft">2:00</span> · Weggeputzt: <span id="germCount">0</span></p>
+      </div>
+      <div class="handoff" id="handoff" hidden>
+        <svg viewBox="0 0 320 170" aria-hidden="true">
+          <circle cx="62" cy="86" r="50" fill="var(--kc, #3D6FB6)"/><text id="hoKid" x="62" y="104" text-anchor="middle" font-family="Baloo 2, Nunito, sans-serif" font-weight="800" font-size="50" fill="#fff">V</text>
+          <circle cx="258" cy="86" r="56" fill="#E5546B"/><text x="258" y="106" text-anchor="middle" font-family="Baloo 2, Nunito, sans-serif" font-weight="800" font-size="54" fill="#fff">P</text>
+          <g class="ho-brush"><rect x="-6" y="-4" width="12" height="62" rx="6" fill="#3D6FB6" transform="rotate(70)"/><g transform="rotate(70)"><rect x="-11" y="-28" width="22" height="28" rx="6" fill="#fff" stroke="#B8C7D8" stroke-width="2"/><path d="M-6-25v20M0-25v20M6-25v20" stroke="#7FB8E8" stroke-width="3" stroke-linecap="round"/></g></g>
+          <path d="M120 140 Q160 160 200 140" stroke="#5B6B86" stroke-width="4" fill="none" stroke-dasharray="6 8" stroke-linecap="round"/>
+          <path d="M194 132 l10 8 -12 5" stroke="#5B6B86" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h2 id="hoHead">Super geputzt!</h2>
+        <p>Jetzt gib die Zahnbürste Papa.<br>Papa schaut nach, ob Zucki wirklich weg ist.</p>
+        <button class="big-btn" id="papaGo">Papa ist dran</button>
       </div>
       <div class="finish" id="brushDone" hidden>
         <h2>Blitzblank!</h2>
@@ -544,7 +600,7 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
     <div style="display:flex;flex-direction:column;gap:20px">
       <div class="shop-head">
         <h2>Sterne-Shop</h2>
-        <p>Was möchtest du dir aussuchen?</p>
+        <button class="howto" id="shopHow"><span>?</span> So geht's</button>
       </div>
       <div class="shop" id="shop"></div>
       <div class="coupons">
@@ -610,6 +666,19 @@ nav button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
 </div>
 
 <div class="toast" id="toast" hidden></div>
+<div class="explain" id="explain" hidden role="dialog" aria-label="So funktionieren die Sterne">
+  <div class="ex-card">
+    <div class="ex-top"><b>So geht das mit den Sternen</b><button class="ex-x" id="exClose" aria-label="Schließen">✕</button></div>
+    <div class="ex-stage" id="exStage"></div>
+    <p class="ex-cap" id="exCap"></p>
+    <div class="ex-dots" id="exDots"></div>
+    <div class="ex-ctrl">
+      <button class="soft" id="exPrev" aria-label="Zurück">◀</button>
+      <button class="big-btn" id="exPlay">Nochmal</button>
+      <button class="soft" id="exNext" aria-label="Weiter">▶</button>
+    </div>
+  </div>
+</div>
 <div class="startover" id="startOver">
   <div class="start-card">
     <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#FFF3C9"/><path d="M60 18l12 25 27 3-20 19 6 27-25-14-25 14 6-27-20-19 27-3z" fill="#FFB400" stroke="#E09A00" stroke-width="3" stroke-linejoin="round"/></svg>
@@ -1121,7 +1190,9 @@ const ZONES = [
   {n:'Oben links', x:[50,140], y:[52,92]}, {n:'Oben rechts', x:[160,250], y:[52,92]},
   {n:'Unten links', x:[50,140], y:[128,168]}, {n:'Unten rechts', x:[160,250], y:[128,168]}
 ];
-const TOTAL = 120;
+const TOTAL = 120, PAPA_T = 30;
+let papaMode = false;
+const brushDur = () => papaMode ? PAPA_T : TOTAL;
 let brushStart = 0, brushTick = null, spawnTick = null, curZone = -1, germCount = 0;
 const ZCAP = [[0.5,5.9,'Hallo {N}!\nIch bin Zucki!'],[6.3,12.0,'Ich komme aus dem Zucker.\nAus Bonbons, Kuchen\nund Gummibärchen!'],[12.3,19.0,'Wenn du nicht putzt,\nhacke ich an deinen\nZähnen. Aua!'],[19.3,22.6,'Aber eigentlich will ich\nin deinen Bauch!'],[22.8,26.0,'Mit kaputten Zähnen\nkannst du keine\nSüßigkeiten mehr essen.'],[26.3,31.0,'Also putz schön\ndeine Zähne!\nDann sehen wir uns wieder.'],[31.3,34.0,'Tschüss, {N}!']];
 const ACAP = [[0.5,5.3,'Hallo {N}!\nIch bin Astro,\nder kleine Astronaut!'],[5.6,10.0,'Ich fliege mit meiner\nRakete zu den Sternen\nund zum Mond.'],[10.3,16.0,'Heute Nacht fliegst du mit!\nDafür brauchst du deinen\nWeltraum-Schlafanzug.'],[16.2,22.0,'Zuerst die Hose,\ndann das Oberteil,\nund dein Kuscheltier\nfliegt auch mit.'],[22.2,27.4,'Danach putzen wir\ndie Zähne, damit Zucki\nund Zacki nicht\nmitfliegen.'],[27.6,34.0,'Drei, zwei, eins, Start!\nGute Nacht, {N}!']];
@@ -1155,7 +1226,7 @@ function setVid(mode){
   try { speechSynthesis.cancel(); } catch(e){}
 }
 function openTeeth(){
-  $('videoPart').hidden = false; $('brushPart').hidden = true; $('brushDone').hidden = true;
+  $('videoPart').hidden = false; $('brushPart').hidden = true; $('brushDone').hidden = true; $('handoff').hidden = true; papaMode = false;
   setVid(vidMode);
 }
 function stopTeeth(){
@@ -1175,8 +1246,9 @@ $('bgo').addEventListener('click', () => {
   }
 });
 $('bv').addEventListener('ended', startBrush);
-$('skipVideo').addEventListener('click', startBrush);
-$('brushAgain').addEventListener('click', startBrush);
+$('skipVideo').addEventListener('click', () => startBrush());
+$('brushAgain').addEventListener('click', () => startBrush());
+$('papaGo').addEventListener('click', () => startBrush(true));
 /* Zahnbürste und Melodie, beide im selben Takt */
 const BEAT = 0.5;
 let rafId = null, music = null, lastStroke = -1;
@@ -1230,8 +1302,11 @@ function startMusic(vol){
     music = {stop(){ clearInterval(id); try{ master.gain.setTargetAtTime(0.0001, actx.currentTime, 0.1); setTimeout(() => master.disconnect(), 600); }catch(e){} }};
   }catch(e){ music = null; }
 }
-function startBrush(){
+function startBrush(papa){
   stopTeeth();
+  papaMode = papa === true;
+  $('magnifier').style.display = papaMode ? '' : 'none'; $('brushTool').style.display = papaMode ? 'none' : '';
+  $('handoff').hidden = true;
   $('videoPart').hidden = true; $('brushDone').hidden = true; $('brushPart').hidden = false;
   $('germs').innerHTML = ''; germCount = 0; $('germCount').textContent = 0; curZone = -1;
   brushStart = performance.now();
@@ -1240,20 +1315,23 @@ function startBrush(){
   lastStroke = -1; $('foam').innerHTML = ''; rafId = requestAnimationFrame(animBrush); startMusic();
 }
 function brushStep(){
-  const t = (performance.now() - brushStart) / 1000;
-  if (t >= TOTAL) { finishBrush(); return; }
-  const z = Math.min(3, Math.floor(t / (TOTAL/4)));
+  const t = (performance.now() - brushStart) / 1000, T = brushDur();
+  if (t >= T) { if (papaMode) finishBrush(); else showHandoff(); return; }
+  const z = Math.min(3, Math.floor(t / (T/4)));
   if (z !== curZone){
     curZone = z;
     document.querySelectorAll('#zones rect').forEach(r => r.classList.toggle('on', +r.dataset.z === z));
     document.querySelectorAll('.germ-pos').forEach(g => removeGerm(g, false));
-    $('zoneText').textContent = ZONES[z].n + ' putzen!';
+    $('zoneText').textContent = papaMode ? 'Papa schaut nach: ' + ZONES[z].n.toLowerCase() : ZONES[z].n + ' putzen!';
+    if (papaMode) { if (z === 0) speak(['b_papa2'], 'Mund schön weit auf! Papa sucht die letzten Zuckis.'); }
+    else {
     const zc = ['b_los','b_obenrechts','b_untenlinks','b_untenrechts'][z];
     speak([zc], z === 0 ? 'Los gehts! Zuerst oben links putzen!' : 'Super! Jetzt ' + ZONES[z].n.toLowerCase() + '!');
+    }
   }
-  const left = Math.ceil(TOTAL - t);
+  const left = Math.ceil(T - t);
   $('timeLeft').textContent = Math.floor(left/60) + ':' + String(left%60).padStart(2,'0');
-  $('barFill').style.width = (t / TOTAL * 100) + '%';
+  $('barFill').style.width = (t / T * 100) + '%';
 }
 const ZUCKI_SVG = '<g transform="scale(.36)"><g transform="rotate(-8)"><rect x="-46" y="-46" width="92" height="92" rx="16" fill="#FFFFFF" stroke="#C9D6E6" stroke-width="3"/><path d="M-46 -18 L-18 -46" stroke="#E3ECF6" stroke-width="6" stroke-linecap="round"/><circle cx="-28" cy="26" r="2.5" fill="#B9D7F2"/><circle cx="30" cy="-30" r="2.5" fill="#B9D7F2"/><circle cx="-34" cy="-6" r="2" fill="#F5B8C6"/><circle cx="34" cy="20" r="2" fill="#F5B8C6"/><path d="M-30 -22 L-8 -14" stroke="#2B3A55" stroke-width="5" stroke-linecap="round"/><path d="M30 -22 L8 -14" stroke="#2B3A55" stroke-width="5" stroke-linecap="round"/><circle cx="-16" cy="-2" r="9" fill="#FFFFFF" stroke="#2B3A55" stroke-width="2.5"/><circle cx="16" cy="-2" r="9" fill="#FFFFFF" stroke="#2B3A55" stroke-width="2.5"/><circle cx="-13" cy="0" r="4" fill="#2B3A55"/><circle cx="19" cy="0" r="4" fill="#2B3A55"/><path d="M-18 18 Q0 32 20 16" stroke="#2B3A55" stroke-width="3.5" fill="#E5546B" stroke-linecap="round"/><rect x="-6" y="18" width="8" height="7" rx="1.5" fill="#FFFFFF"/><circle cx="-30" cy="12" r="6" fill="#F8C9D3"/><circle cx="30" cy="12" r="6" fill="#F8C9D3"/></g><path d="M44 8 Q58 0 60 -14" stroke="#C9D6E6" stroke-width="6" fill="none" stroke-linecap="round"/><g transform="translate(62 -30) rotate(25)"><rect x="-3" y="0" width="7" height="40" rx="3" fill="#B07A44"/><rect x="-14" y="-12" width="29" height="16" rx="5" fill="#E5546B"/><rect x="-14" y="-12" width="7" height="16" rx="3" fill="#C23B52"/></g></g>';
 const BACKI_SVG = '<g transform="scale(-.36 .36)"><g transform="rotate(-8)"><rect x="-46" y="-46" width="92" height="92" rx="16" fill="#2A2A33" stroke="#0E0E14" stroke-width="3"/><path d="M-46 -18 L-18 -46" stroke="#4A4A58" stroke-width="6" stroke-linecap="round"/><circle cx="-28" cy="26" r="2.5" fill="#B9D7F2"/><circle cx="30" cy="-30" r="2.5" fill="#B9D7F2"/><circle cx="-34" cy="-6" r="2" fill="#F5B8C6"/><circle cx="34" cy="20" r="2" fill="#F5B8C6"/><path d="M-30 -22 L-8 -14" stroke="#E6E6EE" stroke-width="5" stroke-linecap="round"/><path d="M30 -22 L8 -14" stroke="#E6E6EE" stroke-width="5" stroke-linecap="round"/><circle cx="-16" cy="-2" r="9" fill="#FFFFFF" stroke="#2B3A55" stroke-width="2.5"/><circle cx="16" cy="-2" r="9" fill="#FFFFFF" stroke="#2B3A55" stroke-width="2.5"/><circle cx="-13" cy="0" r="4" fill="#2B3A55"/><circle cx="19" cy="0" r="4" fill="#2B3A55"/><path d="M-18 18 Q0 32 20 16" stroke="#2B3A55" stroke-width="3.5" fill="#E5546B" stroke-linecap="round"/><rect x="-6" y="18" width="8" height="7" rx="1.5" fill="#FFFFFF"/><circle cx="-30" cy="12" r="6" fill="#F8C9D3"/><circle cx="30" cy="12" r="6" fill="#F8C9D3"/></g><path d="M44 8 Q58 0 60 -14" stroke="#2A2A33" stroke-width="6" fill="none" stroke-linecap="round"/><g transform="translate(62 -30) rotate(25)"><rect x="-3" y="0" width="7" height="40" rx="3" fill="#B07A44"/><rect x="-14" y="-12" width="29" height="16" rx="5" fill="#E5546B"/><rect x="-14" y="-12" width="7" height="16" rx="3" fill="#C23B52"/></g></g>';
@@ -1277,8 +1355,18 @@ function removeGerm(g, tapped){
     if (germCount % 3 === 1) speak([g.dataset.name === 'Zucki' ? (Math.random() < .5 ? 'b_zucki' : 'b_zucki2') : 'b_zacki'], 'Weg mit dir, ' + g.dataset.name + '!');
   }
 }
+function showHandoff(){
+  stopTeeth();
+  $('brushPart').hidden = true; $('handoff').hidden = false;
+  $('hoKid').textContent = KID[0];
+  $('handoff').style.setProperty('--kc', KID === 'Ole' ? '#3FA472' : '#3D6FB6');
+  $('hoHead').textContent = 'Super geputzt, ' + KID + '!';
+  chime(true);
+  speak(['b_papa1'], 'Super geputzt! Jetzt gib die Zahnbürste Papa. Papa schaut nach, ob Zucki wirklich weg ist.');
+}
 function finishBrush(){
   stopTeeth();
+  const checked = papaMode; papaMode = false;
   if (S.brushDate !== today()) { S.brushDate = today(); S.brushCount = 0; }
   const earn = (S.brushCount || 0) < 2;
   if (earn) { S.brushCount = (S.brushCount || 0) + 1; addStars(3); }
@@ -1286,11 +1374,11 @@ function finishBrush(){
   $('brushPart').hidden = true; $('brushDone').hidden = false;
   if (earn) { awardSticker('brushSticker'); markDay('brush'); } else $('brushSticker').hidden = true;
   $('brushDoneText').textContent = earn
-    ? 'Zucki und Zacki sind weg! Du hast ' + germCount + ' weggeputzt. +3 Sterne!'
+    ? (checked ? 'Papa hat nachgeschaut: alles sauber! ' : 'Zucki und Zacki sind weg! ') + 'Du hast ' + germCount + ' weggeputzt. +3 Sterne!'
     : 'Prima geputzt! Heute gab es schon zweimal Sterne, morgen wieder.';
   $('brushNight').hidden = curR !== 'abend';
   renderStars(true); confetti();
-  speak(earn ? ['b_blitz','b_sterne'] : ['b_blitz'], earn ? 'Blitzblank! Toll gemacht, ' + KID + '! Drei Sterne für dich!' : 'Blitzblank! Toll gemacht, ' + KID + '!');
+  speak((checked && VOICE[vkey('b_papa3')] ? ['b_papa3'] : []).concat(earn ? ['b_blitz','b_sterne'] : ['b_blitz']), earn ? 'Blitzblank! Toll gemacht, ' + KID + '! Drei Sterne für dich!' : 'Blitzblank! Toll gemacht, ' + KID + '!');
 }
 $('goShop').addEventListener('click', () => show('shop'));
 
@@ -1596,6 +1684,62 @@ function renderJar(){
 $('jarCard').addEventListener('click', () => {
   const c = $('jarCard'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake'); chime(true);
 });
+
+/* Erklärfilm: Sterne und Shop, kindgerecht in Bildern mit Stimme */
+const JAR_SVG = '<svg viewBox="0 0 120 150" class="big" style="width:120px;height:150px;overflow:visible"><rect x="26" y="6" width="68" height="14" rx="5" fill="#A8743F"/><rect x="30" y="18" width="60" height="8" rx="3" fill="#8A5A2B"/><path d="M32 26 C14 34 10 50 10 70 V130 Q10 146 26 146 H94 Q110 146 110 130 V70 C110 50 106 34 88 26 Z" fill="#EAF5FC" stroke="#9CC3EE" stroke-width="3"/>';
+function jarWith(n, cls){
+  let st = '';
+  for (let k = 0; k < n; k++){ const [x, y, r] = jarPos(k); st += '<path class="' + (cls || '') + '" style="animation-delay:' + (k * .18) + 's;--fx:' + (60 - x) * 2 + 'px;--fy:-160px" d="' + starPath(x, y, 6.5, r) + '" fill="#FFB400" stroke="#E09A00" stroke-width="1"/>'; }
+  return JAR_SVG + st + '</svg>';
+}
+const SHIRT = '<svg viewBox="0 0 60 60" class="mid"><path d="M18 8 L8 14 L4 28 L14 30 L14 54 L46 54 L46 30 L56 28 L52 14 L42 8 Q36 14 30 14 Q24 14 18 8z" fill="#7AA9DE" stroke="#3D6FB6" stroke-width="2.5" stroke-linejoin="round"/></svg>';
+const TBRUSH = '<svg viewBox="0 0 60 60" class="mid"><rect x="26" y="20" width="8" height="38" rx="4" fill="#3D6FB6"/><rect x="22" y="4" width="16" height="20" rx="5" fill="#fff" stroke="#B8C7D8" stroke-width="2"/><path d="M26 7v14M30 7v14M34 7v14" stroke="#7FB8E8" stroke-width="2.5" stroke-linecap="round"/></svg>';
+function exStars(n, cls, from){
+  let h = '';
+  for (let k = 0; k < n; k++) h += '<span class="exs ' + cls + '" style="left:' + (38 + k * 9) + '%;top:' + (12 + (k % 2) * 10) + '%;animation-delay:' + (k * .25 + .4) + 's;--fx:' + (from ? from[0] : 0) + 'px;--fy:' + (from ? from[1] : 120) + 'px">' + STAR + '</span>';
+  return h;
+}
+function exProd(can){
+  const p = S.shop[0] || {name:'Gummibärchen', price:5, icon:'sticker'};
+  const ic = ICONS[p.icon] || ICONS.sticker;
+  return {p, html: '<div class="ex-prod ex-pop"><div class="pic" style="background:' + ic.color + '">' + ic.svg + '</div><span class="exname"></span><span class="price">' + STAR + p.price + '</span>' + (can ? '<button class="buy" tabindex="-1">Kaufen</button><span class="ex-tap" style="right:18px;bottom:2px;animation-delay:1s"></span>' : '') + '</div>'};
+}
+const EX = [
+  {k:'e1', t:'Wenn du dich anziehst oder Zähne putzt, bekommst du Sterne!',
+   v:() => SHIRT.replace('class="mid"','class="mid ex-pop"') + TBRUSH.replace('class="mid"','class="mid ex-pop" style="animation-delay:.3s"') + exStars(3, 'ex-fly', [0, 110])},
+  {k:'e2', t:'Deine Sterne kommen in dein Sternenglas. Je mehr du sammelst, desto voller wird es.',
+   v:() => jarWith(14, 'ex-fly')},
+  {k:'e3', t:'Im Shop kannst du dir mit deinen Sternen etwas aussuchen. Die Zahl zeigt, wie viele Sterne es kostet.',
+   v:() => { const x = exProd(false); return x.html.replace('<span class="exname"></span>', '<span>' + esc(x.p.name) + '</span>'); }},
+  {k:'e4', t:'Hast du genug Sterne? Dann tipp auf Kaufen. Die Sterne fliegen aus deinem Glas.',
+   v:() => { const x = exProd(true); return jarWith(Math.min((S.shop[0] || {price:5}).price, 12), 'ex-out') + x.html.replace('<span class="exname"></span>', '<span>' + esc(x.p.name) + '</span>'); }},
+  {k:'e5', t:'Dafür bekommst du einen Gutschein. Zeig ihn Mama oder Papa, dann bekommst du deine Belohnung!',
+   v:() => '<div class="ex-ticket ex-pop">Gutschein<br>' + esc((S.shop[0] || {name:'Gummibärchen'}).name) + '<small>Zeig ihn Mama oder Papa</small></div>'},
+  {k:'e6', t:'Noch nicht genug Sterne? Kein Problem! Jeden Tag kannst du neue Sterne sammeln.',
+   v:() => '<div class="ex-week">' + ['Mo','Di','Mi','Do','Fr','Sa','So'].map((d, i) => '<div class="ex-pop" style="animation-delay:' + i * .25 + 's">' + STAR + d + '</div>').join('') + '</div>'}
+];
+function esc(t){ const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+let exI = 0, exT = null, exAuto = true;
+function exDur(i){ const w = EX[i].t.split(/\s+/).length; return Math.max(4500, w / 2.3 * 1000 + 1800); }
+function exShow(i){
+  exI = Math.max(0, Math.min(EX.length - 1, i));
+  const sc = EX[exI];
+  $('exStage').innerHTML = sc.v();
+  $('exCap').textContent = sc.t;
+  $('exDots').innerHTML = EX.map((_, j) => '<i class="' + (j === exI ? 'on' : '') + '"></i>').join('');
+  $('exPrev').disabled = exI === 0; $('exNext').disabled = exI === EX.length - 1;
+  speak([sc.k], sc.t);
+  clearTimeout(exT);
+  if (exAuto && exI < EX.length - 1) exT = setTimeout(() => exShow(exI + 1), exDur(exI));
+}
+function openExplain(){ exAuto = true; $('explain').hidden = false; exShow(0); }
+function closeExplain(){ clearTimeout(exT); $('explain').hidden = true; playToken++; try { voiceEl.pause(); } catch(e){} try { speechSynthesis.cancel(); } catch(e){} if (fbAudio) { try { fbAudio.pause(); } catch(e){} fbAudio = null; } }
+$('exClose').addEventListener('click', closeExplain);
+$('exPrev').addEventListener('click', () => { exAuto = false; exShow(exI - 1); });
+$('exNext').addEventListener('click', () => { exAuto = false; exShow(exI + 1); });
+$('exPlay').addEventListener('click', () => { exAuto = true; exShow(0); });
+$('jarHow').addEventListener('click', e => { e.stopPropagation(); openExplain(); });
+$('shopHow').addEventListener('click', openExplain);
 
 /* Licht aus */
 const NSTARS = [[60,70],[170,44],[290,86],[110,160],[232,150],[56,262],[176,236],[300,214]];
